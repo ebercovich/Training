@@ -63,7 +63,7 @@ To ensure seamless communication and compatibility with the TurtleBot3 Waffle Pi
 #### ROS 2 Distribution:
 You will need to install **ROS 2 Humble Hawksbill** on your Ubuntu 22.04 PC.
 - **How to install:** For additional context you're encouraged to visit [The Official ROS2 Humble Documentation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html) , we will focus on essentials.
-
+**💻 Run on Laptop:**
 ```bash
 # Set locale to ensure proper character encoding for ROS 2
 sudo apt update && sudo apt install -y locales
@@ -91,11 +91,13 @@ echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 # Refresh terminal to apply changes in .bashrc
 source ~/.bashrc
 ```
-**optional:** In the future you may also find ros2 development tools needed.``
+**optional:** In the future you may also find ros2 development tools needed.
+**💻 Run on Laptop (PC Setup):**
 ```bash
  sudo apt install ros-dev-tools -y
 ```
 #### Important ROS 2 Packages
+**💻 Run on Laptop (PC Setup):**
 ```bash
 #Install Gazebo
 sudo apt install -y ros-humble-gazebo-*
@@ -114,27 +116,27 @@ echo 'source /usr/share/gazebo/setup.sh' >> ~/.bashrc
 source ~/.bashrc
 ```
 ####  TurtleBot3 Packages 
-> [!computer] 💻 **Laptop:** 
-> ```bash
-> # Create a new workspace directory with a source folder (src) and navigate to it
-> mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws/src/
-> # Download the Dynamixel SDK (hardware drivers) specifically for the Humble distribution
-> git clone -b humble https://github.com/ROBOTIS-GIT/DynamixelSDK.git
-> # Download the custom message definitions required for TurtleBot3 communication
-> git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
-> # Download the core TurtleBot3 ROS 2 packages (Slam, Navigation, Teleop, etc.)
-> git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3.git
-> 
-> # Install colcon, the standard build tool used in ROS 2
-> sudo apt install python3-colcon-common-extensions -y
-> # Build the workspace; --symlink-install allows changes to non-compiled files to take effect without rebuilding
-> cd ~/turtlebot3_ws
-> colcon build --symlink-install
-> 
-> # Automatically source this workspace's setup file in every new terminal window
-> echo 'source ~/turtlebot3_ws/install/setup.bash' >> ~/.bashrc
-> # Set a unique Domain ID to prevent interference with other ROS 2 users on the same network
-> echo 'export ROS_DOMAIN_ID=30 #TURTLEBOT3' >> ~/.bashrc
-> # Refresh terminal to apply changes in .bashrc
-> source ~/.bashrc
-> ```
+**💻 Run on Laptop (PC Setup):**
+```bash
+# Create a new workspace directory with a source folder (src) and navigate to it
+mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws/src/
+# Download the Dynamixel SDK (hardware drivers) specifically for the Humble distribution
+git clone -b humble https://github.com/ROBOTIS-GIT/DynamixelSDK.git
+# Download the custom message definitions required for TurtleBot3 communication
+git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+# Download the core TurtleBot3 ROS 2 packages (Slam, Navigation, Teleop, etc.)
+git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3.git
+
+# Install colcon, the standard build tool used in ROS 2
+sudo apt install python3-colcon-common-extensions -y
+# Build the workspace; --symlink-install allows changes to non-compiled files to take effect without rebuilding
+cd ~/turtlebot3_ws
+colcon build --symlink-install
+
+# Automatically source this workspace's setup file in every new terminal window
+echo 'source ~/turtlebot3_ws/install/setup.bash' >> ~/.bashrc
+# Set a unique Domain ID to prevent interference with other ROS 2 users on the same network
+echo 'export ROS_DOMAIN_ID=30 #TURTLEBOT3' >> ~/.bashrc
+# Refresh terminal to apply changes in .bashrc
+source ~/.bashrc
+```

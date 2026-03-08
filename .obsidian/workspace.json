@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "5c33ebc29e5d8956",
+        "id": "31d1b1f27f73e409",
         "type": "tabs",
         "children": [
           {
-            "id": "1735f2966d4c5e4c",
+            "id": "b36741c58481daa0",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
-              "state": {
-                "aFile": ".obsidian/plugins/obsidian-git/data.json",
-                "bFile": ".obsidian/plugins/obsidian-git/data.json",
-                "aRef": ""
-              },
-              "icon": "diff",
-              "title": "Diff: data.json  (Working Tree)"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -192,7 +188,7 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "1735f2966d4c5e4c",
+  "active": "a75fececcca0c898",
   "lastOpenFiles": [
     "TurtleBot3 Waffle Pi Tutorial.md",
     "copilot/copilot-custom-prompts/Clip Web Page.md",

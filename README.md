@@ -114,27 +114,27 @@ echo 'source /usr/share/gazebo/setup.sh' >> ~/.bashrc
 source ~/.bashrc
 ```
 ####  TurtleBot3 Packages 
-
-```bash
-# Create a new workspace directory with a source folder (src) and navigate to it
-mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws/src/
-# Download the Dynamixel SDK (hardware drivers) specifically for the Humble distribution
-git clone -b humble https://github.com/ROBOTIS-GIT/DynamixelSDK.git
-# Download the custom message definitions required for TurtleBot3 communication
-git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
-# Download the core TurtleBot3 ROS 2 packages (Slam, Navigation, Teleop, etc.)
-git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3.git
-
-# Install colcon, the standard build tool used in ROS 2
-sudo apt install python3-colcon-common-extensions -y
-# Build the workspace; --symlink-install allows changes to non-compiled files to take effect without rebuilding
-cd ~/turtlebot3_ws
-colcon build --symlink-install
-
-# Automatically source this workspace's setup file in every new terminal window
-echo 'source ~/turtlebot3_ws/install/setup.bash' >> ~/.bashrc
-# Set a unique Domain ID to prevent interference with other ROS 2 users on the same network
-echo 'export ROS_DOMAIN_ID=30 #TURTLEBOT3' >> ~/.bashrc
-# Refresh terminal to apply changes in .bashrc
-source ~/.bashrc
-```
+> [!computer] 💻 **Laptop:** 
+> ```bash
+> # Create a new workspace directory with a source folder (src) and navigate to it
+> mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws/src/
+> # Download the Dynamixel SDK (hardware drivers) specifically for the Humble distribution
+> git clone -b humble https://github.com/ROBOTIS-GIT/DynamixelSDK.git
+> # Download the custom message definitions required for TurtleBot3 communication
+> git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+> # Download the core TurtleBot3 ROS 2 packages (Slam, Navigation, Teleop, etc.)
+> git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3.git
+> 
+> # Install colcon, the standard build tool used in ROS 2
+> sudo apt install python3-colcon-common-extensions -y
+> # Build the workspace; --symlink-install allows changes to non-compiled files to take effect without rebuilding
+> cd ~/turtlebot3_ws
+> colcon build --symlink-install
+> 
+> # Automatically source this workspace's setup file in every new terminal window
+> echo 'source ~/turtlebot3_ws/install/setup.bash' >> ~/.bashrc
+> # Set a unique Domain ID to prevent interference with other ROS 2 users on the same network
+> echo 'export ROS_DOMAIN_ID=30 #TURTLEBOT3' >> ~/.bashrc
+> # Refresh terminal to apply changes in .bashrc
+> source ~/.bashrc
+> ```

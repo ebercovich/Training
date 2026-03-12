@@ -289,7 +289,7 @@ cd ./opencr_update
 ./update.sh $OPENCR_PORT $OPENCR_MODEL.opencr  
 ```
 This is how successful upload should look like.
-![[images/shell01.png]]
+![Shell Success](images/shell01.png)
 If the firmware upload fails, check [OpenCR Setup](https://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#opencr-setup) on step 7.
 #### Hardware assembly
 Your printed assembly manual is likely outdated and refers to old parts such as LDS-02. For updated instructions download  [Assembly manual for TurtleBot3 Waffle Pi](http://www.robotis.com/service/download.php?no=750).
@@ -297,4 +297,4 @@ Your printed assembly manual is likely outdated and refers to old parts such as 
 1. After assembling the TurtleBot3, connect the OpenCR to the battery and turn on the power switch. The red `Power LED` will be turned on.
 2. Press and hold `PUSH SW 1` for a few seconds to command the robot to move 30 centimeters (about 12 inches) forward.
 3. Press and hold `PUSH SW 2` for a few seconds to command the robot to rotate 180 degrees in place.
-![[images/opencr_models.png]]
+![OpenCR](images/opencr_models.png)

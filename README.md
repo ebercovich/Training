@@ -172,6 +172,7 @@ Once `rpi-imager` is installed, connect the SD card to your laptop using your re
 8. Click `Edit Setting` for wifi and ssh setting.
 9. Set `username` and `password`, `Configure wireless LAN`, `Wireless LAN country`. And activate `Enable SSH` with `Use password authenication` in `SERVICES` tab.
 10. - [ ] SSH USB
+11. - [ ] Add Images
 ##### Configure the Raspberry Pi
 1.Boot Up the Raspberry Pi  
 * [More information about where to connect HDMI, power and input devices is available here](https://www.raspberrypi.com/documentation/computers/getting-started.html)  
@@ -268,7 +269,7 @@ echo 'export LDS_MODEL=LDS-03' >> ~/.bashrc # If you are using LDS-03
 source ~/.bashrc
 ```
 #### OpenCR Setup
-Connect the OpenCR(The blue board) to the Rasbperry Pi(The green board) using a micro USB cable.
+Connect the OpenCR (The blue board) to the Rasbperry Pi (The green board) using a micro USB cable.
 ###### 🤖 Run on TurtleBot3:
 ```bash
 # Install the required packages to upload the OpenCR firmware.
@@ -278,7 +279,7 @@ sudo apt-get install -y libc6:armhf
 
 # Configure upload parameters
 export OPENCR_PORT=/dev/ttyACM0  
-export OPENCR_MODEL=waffle_pi
+export OPENCR_MODEL=waffle
 rm -rf ./opencr_update.tar.bz2  
 # Download the firmware and required loader, then extract the file to prepare for upload
 wget https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2   

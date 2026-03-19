@@ -97,7 +97,7 @@ source ~/.bashrc
  sudo apt install ros-dev-tools -y
 ```
 #### Important ROS 2 Packages
-Now we install the ROS tools we discussed in section 2: [[#Gazebo]], [[#Cartographer]], and [[#Navigation2 (ROS 2 Navigation Stack)|Navigation2]].
+Now we install the ROS tools we discussed in section 2: [Gazebo](#Gazebo), [Cartographer](#Cartographer), and [Jump](#navigation2-ros-2-navigation-stack).
 ###### 💻 Run on Laptop 
 ```bash
 #Install Gazebo

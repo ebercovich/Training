@@ -1,14 +1,14 @@
 # TurtleBot3 Waffle Pi Tutorial
 ## 1. Overview
 This tutorial is based on the official documentation available at [TurtleBot3](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview).
-Please refer for updates and additional details.
+Please refer to it for updates and additional details.
 
 The **TurtleBot3 Waffle Pi** is a modular, open-source mobile robot platform designed for advanced ROS research and development. As a larger-scale model in the TurtleBot3 family, it provides a stable and extensible base for complex applications such as SLAM, Navigation, and Manipulation.
 
 ---
 ## 2. Background
 
-To effectively work with and understand the TurtleBot3 Waffle Pi, it's crucial to grasp some fundamental concepts and tools in robotics. These include the Robot Operating System (ROS), simulation environments like Gazebo, and core robotic capabilities such as SLAM and Navigation.
+To effectively work with and understand the TurtleBot3 Waffle Pi, it is crucial to grasp some fundamental concepts and tools in robotics. These include the Robot Operating System (ROS), simulation environments like Gazebo, and core robotic capabilities such as SLAM and Navigation.
 
 #### ROS (Robot Operating System)
 - **What it is:** ROS is a flexible framework for writing robot software. It's not an operating system in the traditional sense, but rather a collection of tools, libraries, and conventions that aim to simplify the task of creating complex and robust robot behaviors across a wide variety of robotic platforms.
@@ -26,26 +26,26 @@ To effectively work with and understand the TurtleBot3 Waffle Pi, it's crucial t
 - **Why we need it:** Once a robot has a map (from SLAM) and knows its location, it needs the ability to move purposefully to achieve its objectives. Navigation enables the robot to autonomously reach desired locations, perform tasks that require movement, and interact intelligently with its environment without human intervention.
 #### Other Important Terms
 
--   **IMU (Inertial Measurement Unit)**
-    -   **Explanation:** A sensor (accelerometer, gyroscope, magnetometer) that measures a robot's orientation, angular velocity, and linear acceleration. It's crucial for accurate pose estimation and improving SLAM.
+##### IMU (Inertial Measurement Unit)
+-   **Explanation:** - A sensor (accelerometer, gyroscope, magnetometer) that measures a robot's linear acceleration, angular velocity, and magnetic field. This raw data is then used to also calculate the robot's position and orientation and is crucial for accurate pose estimation and improving SLAM.
 
--   **LDS (Laser Distance Sensor)**
-    -   **Explanation:** A 360° laser sensor (LDS-02 on TurtleBot3) that measures distances to surrounding objects. Essential for building maps (SLAM) and detecting obstacles for navigation.
+##### LDS (Laser Distance Sensor)
+-   **Explanation:** A 360° laser sensor (LDS-02 on TurtleBot3) that measures distances to surrounding objects. It is a type of **LiDAR** (Light Detection and Ranging) sensor, essential for building maps (SLAM) and detecting obstacles for navigation.
 
--   **Rviz2 (ROS Visualization Tool)**
-    -   **Explanation:** A 3D visualization tool for ROS 2 to view sensor data, robot models, maps, and path plans. It's vital for monitoring and debugging robot operations.
+##### Rviz2 (ROS Visualization Tool)
+-   **Explanation:** A 3D visualization tool for ROS 2 to view sensor data, robot models, maps, and path plans. It's vital for monitoring and debugging robot operations.
 
--   **Cartographer**
-    -   **Explanation:** An open-source, real-time SLAM library by Google, using sensor data (like LiDAR and IMU) to build consistent maps. It provides robust mapping and localization for the TurtleBot3.
+##### Cartographer
+-   **Explanation:** An open-source, real-time SLAM library by Google, using sensor data (like LiDAR and IMU) to build consistent maps. It provides robust mapping and localization for the TurtleBot3.
 
--   **Navigation2 (ROS 2 Navigation Stack)**
-    -   **Explanation:** The ROS 2 framework for autonomous navigation, providing tools for global and local path planning, obstacle avoidance, and recovery behaviors. It enables the TurtleBot3 to move purposefully.
+##### Navigation2 (ROS 2 Navigation Stack)
+-   **Explanation:** The ROS 2 framework for autonomous navigation, providing tools for global and local path planning, obstacle avoidance, and recovery behaviors. It enables the TurtleBot3 to move purposefully.
 
--   **OpenCR1.0** (The blue board) 
-    -   **Explanation:** The TurtleBot3's main control board with a 32-bit ARM Cortex-M7 and 9-axis IMU. It handles low-level motor control and sensor communication, acting as the interface between the Raspberry Pi and robot hardware.
+##### OpenCR1.0 
+-   **Explanation:** The TurtleBot3's main control board with a 32-bit ARM Cortex-M7 and 9-axis IMU. It handles low-level motor control and sensor communication, acting as the interface between the Raspberry Pi and robot hardware.
 
-- **SBC (Single Board Computer)**
-    - **Explanation:** A complete computer built on a single circuit board, with microprocessor(s), memory, input/output, and other features required of a functional computer. The Raspberry Pi (The green board) on the TurtleBot3 is an example of an SBC.
+##### SBC (Single Board Computer)
+- **Explanation:** A complete computer built on a single circuit board, with microprocessor(s), memory, input/output, and other features required of a functional computer. The Raspberry Pi (The green board) on the TurtleBot3 is an example of an SBC.
 
 ---
 ## 3. Quick Start
@@ -57,13 +57,13 @@ To ensure seamless communication and compatibility with the TurtleBot3 Waffle Pi
 
 #### Operating System:
    Your PC must be running **Ubuntu 22.04 LTS Desktop**.
-   - **Why it's needed:** Ubuntu 22.04 LTS is the officially supported operating system for **ROS 2 Humble Hawksbill**. This specific ROS 2 distribution is crucial because it will also be installed on the TurtleBot3's onboard computer (Raspberry Pi). For compatible communication they must have the same ROS 2 distribution.
-   - **How to install:** If you don't already have Ubuntu 22.04 LTS install refer to [Ubuntu installation guide]([https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview](https://documentation.ubuntu.com/desktop/en/latest/tutorial/install-ubuntu-desktop/)) you may erase the disk or use [dual-boot option](https://documentation.ubuntu.com/desktop/en/latest/tutorial/install-ubuntu-desktop/#installing-ubuntu-alongside-another-operating-system). For the [64-bit PC (AMD64) desktop image](https://releases.ubuntu.com/22.04/ubuntu-22.04.5-desktop-amd64.iso)
+   - **Why it's needed:** Ubuntu 22.04 LTS is the officially supported operating system for **ROS 2 Humble Hawksbill**. This specific ROS 2 distribution is crucial because it will also be installed on the TurtleBot3's onboard computer (Raspberry Pi). For compatible communication, they must have the same ROS 2 distribution.
+   - **How to install:** If you don't already have Ubuntu 22.04 LTS installed refer to [Ubuntu installation guide]([https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview](https://documentation.ubuntu.com/desktop/en/latest/tutorial/install-ubuntu-desktop/)) you may erase the disk or use [dual-boot option](https://documentation.ubuntu.com/desktop/en/latest/tutorial/install-ubuntu-desktop/#installing-ubuntu-alongside-another-operating-system). For the [64-bit PC (AMD64) desktop image](https://releases.ubuntu.com/22.04/ubuntu-22.04.5-desktop-amd64.iso)
     
-#### ROS 2 Distribution:
+#### ROS 2 Distribution
 You will need to install **ROS 2 Humble Hawksbill** on your Ubuntu 22.04 PC.
 - **How to install:** For additional context you're encouraged to visit [The Official ROS2 Humble Documentation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html) , we will focus on essentials.
-###### 💻 Run on Laptop :
+###### 💻 Run on Laptop 
 ```bash
 # Set locale to ensure proper character encoding for ROS 2
 sudo apt update && sudo apt install -y locales
@@ -92,12 +92,13 @@ echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 **optional:** In the future you may also find ros2 development tools needed.
-###### 💻 Run on Laptop :
+###### 💻 Run on Laptop 
 ```bash
  sudo apt install ros-dev-tools -y
 ```
 #### Important ROS 2 Packages
-###### 💻 Run on Laptop :
+Now we install the ROS tools we discussed in section 2: [[#Gazebo]], [[#Cartographer]], and [[#Navigation2 (ROS 2 Navigation Stack)|Navigation2]].
+###### 💻 Run on Laptop 
 ```bash
 #Install Gazebo
 sudo apt install -y ros-humble-gazebo-*
@@ -116,7 +117,8 @@ echo 'source /usr/share/gazebo/setup.sh' >> ~/.bashrc
 source ~/.bashrc
 ```
 ####  TurtleBot3 Packages 
-###### 💻 Run on Laptop :
+These packages provided by ROBOTIS, include the essential drivers, communication protocols, and core functionalities required for the TurtleBot3 to operate effectively within the ROS 2 framework.
+###### 💻 Run on Laptop 
 ```bash
 # Create a new workspace directory with a source folder (src) and navigate to it
 mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws/src/
@@ -142,7 +144,7 @@ source ~/.bashrc
 ```
 
 ### TurtleBot Setup
-This section will guide you through the setup of the TurtleBot3's onboard components, including the **SBC Setup**, **OpenCR Setup**, and **Hardware Assembly**. **Please note that setting up the boards can be time-consuming; ensure your devices are powered via a stable USB connection rather than battery power to prevent interruptions.** For convenience, we will begin by setting up the boards. This approach simplifies the process of flashing firmware and configuring software, as the boards are more accessible before full assembly.
+This section will guide you through the setup of the TurtleBot3's onboard components, including the **SBC Setup**, **OpenCR Setup**, and **Hardware Assembly**. **Please note that setting up the boards can be time-consuming; ensure your devices are powered via a stable USB connection, rather than battery power, to prevent interruptions.** For convenience, we will begin by setting up the boards. This approach simplifies the process of flashing firmware and configuring software, as the boards are more accessible before full assembly.
 #### SBC Setup
 
 ##### Hardware Needed for this part:
@@ -157,31 +159,30 @@ This section will guide you through the setup of the TurtleBot3's onboard compon
 ##### Flashing the OS 
 To begin, you will need to flash the operating system onto your micro SD card.
 Start by installing the [rpi-imager](https://www.raspberrypi.com/software/).
-###### 💻 Run on Laptop:
+###### 💻 Run on Laptop
 ```bash
 sudo apt install rpi-imager -y
 ```
 Once `rpi-imager` is installed, connect the SD card to your laptop using your reader and follow these steps:
 1. Run Raspberry Pi Imager
 2. Click `CHOOSE OS`.
-3. Select `Other gerneral-purpose OS`.
+3. Select `Other general-purpose OS`.
 4. Select `Ubuntu`.
 5. Select `Ubuntu Server 22.04.5 LTS (64-bit)` that support RPi 3/4/400.  **(Choose Server OS, not desktop OS)**
 6. Click `CHOOSE STORAGE` and select the micro SD card.
 7. Click `Next` to install Ubuntu.
 8. Click `Edit Setting` for wifi and ssh setting.
-9. Set `username` and `password`, `Configure wireless LAN`, `Wireless LAN country`. And activate `Enable SSH` with `Use password authenication` in `SERVICES` tab.
+9. Set `username` and `password`, `Configure wireless LAN`, `Wireless LAN country`, and activate `Enable SSH` with `Use password authentication` in `SERVICES` tab.
 10. - [ ] SSH USB
 11. - [ ] Add Images
 ##### Configure the Raspberry Pi
-1.Boot Up the Raspberry Pi  
 * [More information about where to connect HDMI, power and input devices is available here](https://www.raspberrypi.com/documentation/computers/getting-started.html)  
 a. Connect the HDMI cable to the HDMI port of Raspberry Pi.  
 b. Connect input devices (generally keyboard) to the USB port of the Raspberry Pi.  
 c. Insert the microSD card into Raspberry Pi.  
-d. Connect the power (either USB or OpenCR) to turn on the Raspberry Pi.  
+d. Connect the power (the USB port) to turn on the Raspberry Pi.  
 e. Login with ID `ubuntu` and PASSWORD `ubuntu`. Once logged in, you'll be asked to change the password.
-###### 🤖 Run on TurtleBot3:
+###### 🤖 Run on TurtleBot3
 ```bash
 # Configure apt to stop automatic updates
 printf 'APT::Periodic::Update-Package-Lists "0";\nAPT::Periodic::Unattended-Upgrade "0";' | sudo tee /etc/apt/apt.conf.d/20auto-upgrades
@@ -194,8 +195,8 @@ sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.ta
 # Reboot for changes to take affect
 sudo reboot
 ```
-when it comes back up, it is time to install ros2 on the TutrtleBot itself. It almost the same process as installing ROS on your laptop except now we install `ros-base` instead of desktop.
-###### 🤖 Run on TurtleBot3:
+When it comes back up, it is time to install ROS 2 on the TurtleBot itself. It is almost the same process as installing ROS on your laptop, except now we install `ros-base` instead of desktop.
+###### 🤖 Run on TurtleBot3
 ```bash
 # Set locale to ensure proper character encoding for ROS 2
 sudo apt update && sudo apt install -y locales
@@ -224,7 +225,7 @@ echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 when ROS is installed, install drivers and ROBOTIS packages for the bot.
-###### 🤖 Run on TurtleBot3:
+###### 🤖 Run on TurtleBot3
 ```bash
 # Install ROS drivers
 sudo apt install -y python3-argcomplete python3-colcon-common-extensions libboost-system-dev build-essential
@@ -248,12 +249,12 @@ rm -r turtlebot3_cartographer turtlebot3_navigation2
 cd ~/turtlebot3_ws/
 colcon build --symlink-install --parallel-workers 1
 
-# Add the bash configurations of TurtleBot3 to .bashrc to ensure it is set on shell instance
+# Add the bash configurations of TurtleBot3 to .bashrc to ensure it is set on each shell instance
 echo 'source ~/turtlebot3_ws/install/setup.bash' >> ~/.bashrc
 source ~/.bashrc
 ```
 Additional necessary configurations.
-###### 🤖 Run on TurtleBot3:
+###### 🤖 Run on TurtleBot3
 ```bash
 # USB Port Settings for OpenCR
 sudo cp `ros2 pkg prefix turtlebot3_bringup`/share/turtlebot3_bringup/script/99-turtlebot3-cdc.rules /etc/udev/rules.d/
@@ -263,14 +264,14 @@ sudo udevadm trigger
 # Set a unique Domain ID to prevent interference with other ROS 2 users on the same network
 echo 'export ROS_DOMAIN_ID=30 #TURTLEBOT3' >> ~/.bashrc
 source ~/.bashrc
-# Set LDS model enviroment varialble
+# Set LDS model environment variable
 echo 'export LDS_MODEL=LDS-03' >> ~/.bashrc # If you are using LDS-03
 # Apply changes
 source ~/.bashrc
 ```
 #### OpenCR Setup
-Connect the OpenCR (The blue board) to the Rasbperry Pi (The green board) using a micro USB cable.
-###### 🤖 Run on TurtleBot3:
+Connect the OpenCR (The blue board) to the Raspberry Pi (The green board) using a micro USB cable.
+###### 🤖 Run on TurtleBot3
 ```bash
 # Install the required packages to upload the OpenCR firmware.
 sudo dpkg --add-architecture armhf  
@@ -279,7 +280,7 @@ sudo apt-get install -y libc6:armhf
 
 # Configure upload parameters
 export OPENCR_PORT=/dev/ttyACM0  
-export OPENCR_MODEL=waffle
+export OPENCR_MODEL=waffle # Waflle Pi uses waffle model for openCR
 rm -rf ./opencr_update.tar.bz2  
 # Download the firmware and required loader, then extract the file to prepare for upload
 wget https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2   
@@ -289,11 +290,11 @@ tar -xvf opencr_update.tar.bz2
 cd ./opencr_update  
 ./update.sh $OPENCR_PORT $OPENCR_MODEL.opencr  
 ```
-This is how successful upload should look like.
+This is what a successful upload should look like.
 ![Shell Success](images/shell01.png)
 If the firmware upload fails, check [OpenCR Setup](https://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#opencr-setup) on step 7.
 #### Hardware assembly
-Your printed assembly manual is likely outdated and refers to old parts such as LDS-02. For updated instructions download  [Assembly manual for TurtleBot3 Waffle Pi](http://www.robotis.com/service/download.php?no=750).
+Your printed assembly manual is likely outdated and refers to old parts such as the LDS-02. For updated instructions download  [Assembly manual for TurtleBot3 Waffle Pi](http://www.robotis.com/service/download.php?no=750).
 ##### OpenCR setup sanity check
 1. After assembling the TurtleBot3, connect the OpenCR to the battery and turn on the power switch. The red `Power LED` will be turned on.
 2. Press and hold `PUSH SW 1` for a few seconds to command the robot to move 30 centimeters (about 12 inches) forward.

@@ -191,12 +191,12 @@ f. **For internet sharing over USB**: You need to configure TB3 to ask for IP fo
 printf '[Match]\nName=usb0\n\n[Network]\nDHCP=ipv4' | sudo tee /etc/systemd/network/10-usb0.network
 ```
 After you have configured the TB3 it has a functional interface. At this point each new computer you want to connect TB3 to you just need to establish a private dhcp server, network manager (which is default for ubuntu 22.04) can do this easly.
-**Identify the interface name** (after plugging in the Pi):
+Identify the interface name (after plugging in the Pi):
 ###### 💻 Run on Laptop
 ```bash 
 ip link show #(Look for `enx123456789abd` or `usb0`).
 ``` 
-**Create the Shared Profile**:
+Create the Shared Profile:
 ###### 💻 Run on Laptop
 ```bash
 # Replace <INTERFACE_NAME> with your laptop's name for the Pi

@@ -144,7 +144,7 @@ source ~/.bashrc
 ```
 
 ### TurtleBot Setup
-This section will guide you through the setup of the TurtleBot3's onboard components, including the **SBC Setup**, **OpenCR Setup**, and **Hardware Assembly**. **Please note that setting up the boards can be time-consuming; ensure your devices are powered via a stable USB connection, rather than battery power, to prevent interruptions.** For convenience, we will begin by setting up the boards. This approach simplifies the process of flashing firmware and configuring software, as the boards are more accessible before full assembly.
+This section will guide you through the setup of the TurtleBot3's onboard components, including the **SBC Setup**, **OpenCR Setup**, and **Hardware Assembly**. **Please note that setting up the boards can be time-consuming; ensure your devices are powered via a stable USB connection, rather than battery power, to prevent interruptions.** For convenience, we will begin by setting up the boards. This approach simplifies the process of flashing firmware and configuring software, as the boards are more accessible before full assembly. 
 #### SBC Setup
 
 ##### Hardware Needed for this part:
@@ -173,7 +173,9 @@ Once `rpi-imager` is installed, connect the SD card to your laptop using your re
 7. Click `Next` to install Ubuntu.
 8. Click `Edit Setting` for wifi and ssh setting.
 9. Set `username` and `password`, `Configure wireless LAN`, `Wireless LAN country`, and activate `Enable SSH` with `Use password authentication` in `SERVICES` tab.
-10. - [ ] SSH USB
+10. **For internet sharing over USB**:  You need to create a virtual network interface through the USB, luckily there are existing libraries for that. Open SD card in file explorer on your laptop - 
+	* **In File `config.txt` Add** : `dtoverlay=dwc2`.
+	* **In File `cmdline.txt` Add**: `modules-load=dwc2,g_ether g_ether.dev_addr=12:34:56:78:9a:bc g_ether.host_addr=12:34:56:78:9a:bd net.ifnames=0 biosdevname=0` 
 11. - [ ] Add Images
 ##### Configure the Raspberry Pi
 * [More information about where to connect HDMI, power and input devices is available here](https://www.raspberrypi.com/documentation/computers/getting-started.html)  
@@ -181,7 +183,30 @@ a. Connect the HDMI cable to the HDMI port of Raspberry Pi.
 b. Connect input devices (generally keyboard) to the USB port of the Raspberry Pi.  
 c. Insert the microSD card into Raspberry Pi.  
 d. Connect the power (the USB port) to turn on the Raspberry Pi.  
-e. Login with ID `ubuntu` and PASSWORD `ubuntu`. Once logged in, you'll be asked to change the password.
+e. Login with ID `ubuntu` and PASSWORD `ubuntu`.
+f. **For internet sharing over USB**: You need to configure TB3 to ask for IP for the virtual interface.
+###### 🤖 Run on TurtleBot3
+```bash
+# configure TB3 Network
+printf '[Match]\nName=usb0\n\n[Network]\nDHCP=ipv4' | sudo tee /etc/systemd/network/10-usb0.network
+```
+After you have configured the TB3 it has a functional interface. At this point each new computer you want to connect TB3 to you just need to establish a private dhcp server, network manager (which is default for ubuntu 22.04) can do this easly.
+**Identify the interface name** (after plugging in the Pi):
+###### 💻 Run on Laptop
+```bash 
+ip link show #(Look for `enx123456789abd` or `usb0`).
+``` 
+**Create the Shared Profile**:
+###### 💻 Run on Laptop
+```bash
+# Replace <INTERFACE_NAME> with your laptop's name for the Pi
+sudo nmcli connection add type ethernet ifname <INTERFACE_NAME> con-name pi-usb ipv4.method shared
+sudo nmcli connection up pi-usb
+### Sanity check
+ip n # should see <INTERFACE_NAME> as REACHABLE
+```
+If succeeded, the connection should automatically be established when you plug in TB3.
+The connection is good for regular communication like SSH protocol and also shares the laptop's internet connection with TB3.
 ###### 🤖 Run on TurtleBot3
 ```bash
 # Configure apt to stop automatic updates

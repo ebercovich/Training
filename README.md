@@ -97,7 +97,7 @@ source ~/.bashrc
  sudo apt install ros-dev-tools -y
 ```
 #### Important ROS 2 Packages
-Now we install the ROS tools we discussed in section 2: [Gazebo](#Gazebo), [Cartographer](#Cartographer), and [Jump](#navigation2-ros-2-navigation-stack).
+Now we install the ROS tools we discussed in section 2: [Gazebo](#Gazebo), [Cartographer](#Cartographer), and [Nav2](#navigation2-ros-2-navigation-stack).
 ###### 💻 Run on Laptop 
 ```bash
 #Install Gazebo
@@ -172,41 +172,76 @@ Once `rpi-imager` is installed, connect the SD card to your laptop using your re
 6. Click `CHOOSE STORAGE` and select the micro SD card.
 7. Click `Next` to install Ubuntu.
 8. Click `Edit Setting` for wifi and ssh setting.
-9. Set `username` and `password`, `Configure wireless LAN`, `Wireless LAN country`, and activate `Enable SSH` with `Use password authentication` in `SERVICES` tab.
-10. **For internet sharing over USB**:  You need to create a virtual network interface through the USB, luckily there are existing libraries for that. Open SD card in file explorer on your laptop - 
-	* **In File `config.txt` Add** : `dtoverlay=dwc2`.
-	* **In File `cmdline.txt` Add**: `modules-load=dwc2,g_ether g_ether.dev_addr=12:34:56:78:9a:bc g_ether.host_addr=12:34:56:78:9a:bd net.ifnames=0 biosdevname=0` 
-11. - [ ] Add Images
-##### Configure the Raspberry Pi
+9. Click `Edit Setting` to configure initial settings:
+    - Set `username` and `password`
+    - Configure `Wireless LAN` and `Wireless LAN country` (optional, for initial setup)
+    - In the `SERVICES` tab, activate `Enable SSH` with `Use password authentication`
+10. - [ ] Add Images
+
+##### Enabling USB Ethernet Gadget Mode (Recommended)
+
+While WiFi can be used for communication, connecting your laptop directly to the TurtleBot3 via USB provides a more reliable and portable solution. This method creates a virtual ethernet connection over the same USB cable used for power, allowing you to:
+
+- Share your laptop's internet connection with the TurtleBot3
+- Communicate with the robot without depending on external WiFi networks
+- Maintain a consistent, low-latency connection
+
+To enable this, you need to configure the Raspberry Pi as a USB Ethernet gadget. After flashing the OS, **keep the SD card connected to your laptop** and open it in your file explorer:
+
+1. **Edit `config.txt`** – Add the following line at the end:
+	```
+	dtoverlay=dwc2
+	```
+
+2. **Edit `cmdline.txt`** – Add the following parameters to the existing single line (do not create a new line):
+	```
+	    modules-load=dwc2,g_ether g_ether.dev_addr=12:34:56:78:9a:bc g_ether.host_addr=12:34:56:78:9a:bd net.ifnames=0 biosdevname=0
+	```
+
+These settings load the USB Ethernet gadget driver on boot and assign consistent MAC addresses to the virtual network interface.
+##### Initial Raspberry Pi Configuration
 * [More information about where to connect HDMI, power and input devices is available here](https://www.raspberrypi.com/documentation/computers/getting-started.html)  
 a. Connect the HDMI cable to the HDMI port of Raspberry Pi.  
 b. Connect input devices (generally keyboard) to the USB port of the Raspberry Pi.  
 c. Insert the microSD card into Raspberry Pi.  
 d. Connect the power (the USB port) to turn on the Raspberry Pi.  
 e. Login with ID `ubuntu` and PASSWORD `ubuntu`.
-f. **For internet sharing over USB**: You need to configure TB3 to ask for IP for the virtual interface.
+##### Configuring USB Ethernet on the TurtleBot3
+
+If you enabled USB Ethernet Gadget Mode above, configure the TurtleBot3 to request an IP address on the virtual interface:
+
 ###### 🤖 Run on TurtleBot3
 ```bash
-# configure TB3 Network
+# Configure the USB network interface to use DHCP
 printf '[Match]\nName=usb0\n\n[Network]\nDHCP=ipv4' | sudo tee /etc/systemd/network/10-usb0.network
 ```
-After you have configured the TB3 it has a functional interface. At this point each new computer you want to connect TB3 to you just need to establish a private dhcp server, network manager (which is default for ubuntu 22.04) can do this easly.
-Identify the interface name (after plugging in the Pi):
-###### 💻 Run on Laptop
-```bash 
-ip link show #(Look for `enx123456789abd` or `usb0`).
-``` 
-Create the Shared Profile:
+##### Configuring USB Ethernet on Your Laptop
+
+Each time you connect to a new laptop (or after a fresh Ubuntu install), you need to set up a shared network connection. This only needs to be done once per laptop.
+
+First, identify the interface name created when you plug in the Pi:
+
 ###### 💻 Run on Laptop
 ```bash
-# Replace <INTERFACE_NAME> with your laptop's name for the Pi
+ip link show
+# Look for an interface like `enx123456789abd` or `usb0`
+```
+
+Then create a shared connection profile:
+
+###### 💻 Run on Laptop
+```bash
+# Replace <INTERFACE_NAME> with the interface you identified above
 sudo nmcli connection add type ethernet ifname <INTERFACE_NAME> con-name pi-usb ipv4.method shared
 sudo nmcli connection up pi-usb
-### Sanity check
-ip n # should see <INTERFACE_NAME> as REACHABLE
+
+# Verify the connection
+ip n  # Should show the interface as REACHABLE
 ```
-If succeeded, the connection should automatically be established when you plug in TB3.
-The connection is good for regular communication like SSH protocol and also shares the laptop's internet connection with TB3.
+
+Once configured, the connection will be established automatically whenever you plug in the TurtleBot3. Your laptop will also share its internet connection with the robot.
+
+##### System Configuration
 ###### 🤖 Run on TurtleBot3
 ```bash
 # Configure apt to stop automatic updates
